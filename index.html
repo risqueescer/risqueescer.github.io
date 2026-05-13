@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FWI-CRCM6 Map Viewer</title>
+
+    <!-- Leaflet CSS Bundle -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+
+    <!-- Core Leaflet Engine -->
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Target Map DOM Node -->
+    <div id="map"></div>
+    <script>
+    	var map = L.map('map').setView([55.0, -97.0], 3);
+
+        // 2. Load standard Basemap Tileset
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+    	var wmsLayer = L.tileLayer.wms('http://132.208.132.126:8080/geoserver/fwi-crcm6/wms', {
+            layers: 'fwi-crcm6:CRCM6-GEM5-ssp370-ubg-1hr-FWI-SN_2071-2100_vs_CRCM6-GEM5-hist-ubd-1hr-FWI-SN_1981-2010_FWIp95_CFS_rm5y_abs_change',
+            format: 'image/png',
+            transparent: true,
+            opacity: 0.8
+        }).addTo(map);
+    </script>
+
+</body>
+</html>
